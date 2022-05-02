@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json({ extended: false }));
 
-const port = process.env.port || 5000;
+const port = process.env.PORT || 5000;
 
 // username: dbuser1
 // pass: zSTx5E7lwH9ZoA7m
