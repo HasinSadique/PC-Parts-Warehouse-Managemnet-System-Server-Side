@@ -1,0 +1,11 @@
+POST  http://localhost:5000/add-item HTTP/1.1
+Content-Type: application/json
+
+{
+    "imageUrl": "hello",
+    "itemName": "core i9",
+    "supplierName":"Intel",
+    "itemPrice": "800",
+    "description": "cription",
+    "quantity":0
+    }   
