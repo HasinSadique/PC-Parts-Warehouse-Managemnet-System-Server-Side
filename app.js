@@ -63,6 +63,52 @@ async function run() {
       const item = await inventoryItemsCollection.findOne(query);
       res.send(item);
     });
+
+    app.put("/updateStock/:id", async (req, res) => {
+      const { quantity } = req.body;
+      const id = req.params.id;
+      console.log(quantity);
+      const filter = { _id: ObjectId(id) };
+      const updateStockQuantity = {
+        $set: { quantity: quantity },
+      };
+
+      const result = await inventoryItemsCollection.updateOne(
+        filter,
+        updateStockQuantity
+      );
+      res.send({ result });
+    });
+
+    app.put("/update-details/:id", async (req, res) => {
+      const { itemPrice, description } = req.body;
+      const id = req.params.id;
+      console.log(itemPrice);
+
+      const filter = { _id: ObjectId(id) };
+      const updateDetails = {
+        $set: { itemPrice: itemPrice, description: description },
+      };
+
+      const result = await inventoryItemsCollection.updateOne(
+        filter,
+        updateDetails
+      );
+      res.send(result);
+    });
+
+    app.delete("/delete-item/:id", async (req, res) => {
+      const id = req.params.id;
+      console.log("ID: ", id);
+
+      const query = { _id: ObjectId(id) };
+      const result = await inventoryItemsCollection.deleteOne(query);
+      if (result.acknowledged == true) {
+        res.send({ Status: 200, msg: "Successfully Deleted" });
+      } else {
+        res.send(status, { msg: "kuch to garbar hay" });
+      }
+    });
   } catch (e) {
     console.log("error is: ", e);
   } finally {
